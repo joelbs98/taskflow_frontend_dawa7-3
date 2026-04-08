@@ -1,0 +1,30 @@
+.contenedor {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #1f3c88;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #333;
+  margin-top: 25px;
+}
+
+p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.tarjeta {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background-color: #f7f9fc;
+}
