@@ -1,0 +1,22 @@
+<div class="task-list">
+  <button class="boton" (click)="alternarMensaje()">Mostrar / Ocultar Mensaje</button>
+  <div class="mensaje" *ngIf="mostrarMensaje">
+    <p>Bienvenido a la segunda semana del proyecto Taskflow</p>
+  </div>
+
+  <div class="tarjeta">
+    <h3>Lista de tareas</h3>
+
+    <div class="tarea" *ngFor="let tarea of tareas">
+      <h4>{{ tarea.titulo }}</h4>
+      <p>{{ tarea.descripcion }}</p>
+      <p>Prioridad: {{ tarea.prioridad }}</p>
+
+      <p [ngClass]="tarea.completada ? 'completada' : 'pendiente'">
+        Estado: {{ tarea.completada ? 'Completada' : 'Pendiente' }}
+      </p>
+
+      <button class="boton-secundario" (click)="cambiarEstado(tarea)">Cambiar estado</button>
+    </div>
+  </div>
+</div>
