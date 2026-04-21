@@ -1,0 +1,30 @@
+<div class="card p-4 shadow-sm">
+  <h3 class="mb-3">Agregar nueva tarea</h3>
+  <div class="mb-3">
+    <label class="form-label">Título</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="titulo"
+      placeholder="Ingrese el título de la tarea"
+    />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Descripcion</label>
+    <textarea
+      class="form-control"
+      [(ngModel)]="descripcion"
+      rows="3"
+      placeholder="Ingrese la descripción"
+    ></textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Prioridad</label>
+    <select class="form-select" [(ngModel)]="prioridad">
+      <option value="Alta">Alta</option>
+      <option value="Media">Media</option>
+      <option value="Baja">Baja</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" (click)="agregarTarea()">Agregar tarea</button>
+</div>
