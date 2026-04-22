@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Tarea {
@@ -17,6 +17,7 @@ interface Tarea {
   styleUrl: './task-list.css',
 })
 export class TaskList {
+  /*
   mostrarMensaje = true;
 
   tareas: Tarea[] = [
@@ -60,6 +61,12 @@ export class TaskList {
   alternarMensaje() {
     this.mostrarMensaje = !this.mostrarMensaje;
   }
+  cambiarEstado(tarea: Tarea) {
+    tarea.completada = !tarea.completada;
+  }
+    */
+  @Input() tareas: Tarea[] = [];
+
   cambiarEstado(tarea: Tarea) {
     tarea.completada = !tarea.completada;
   }
