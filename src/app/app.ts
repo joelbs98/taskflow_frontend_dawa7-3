@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Header } from './header/header';
 import { TaskList } from './task-list/task-list';
 import { Footer } from './footer/footer';
 import { TaskForm } from './task-form/task-form';
+import { CommonModule } from '@angular/common';
+import { ProductoService } from './services/producto.service';
+import { Producto } from './models/producto';
 
 /*
 Padre -> Hijo
@@ -11,6 +14,8 @@ Se usa @Input()
 Hijo -> Padre
 Se usa @Output() y EventEmitter
 */
+
+/*
 interface Tarea {
   id: number;
   titulo: string;
@@ -66,5 +71,34 @@ export class App {
   ];
   agregarNuevaTarea(tarea: Tarea) {
     this.tareas.push(tarea);
+  }
+}
+*/
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css',
+})
+export class App implements OnInit {
+  private productoService = inject(ProductoService);
+
+  productos: Producto[] = [];
+  errorMensaje: string = '';
+
+  ngOnInit(): void {
+    this.cargarProductos();
+  }
+
+  cargarProductos(): void {
+    this.productoService.obtenerProductos().subscribe({
+      next: (data) => {
+        this.productos = data;
+      },
+      error: () => {
+        this.errorMensaje = 'No se pudieron cargar los productos';
+      },
+    });
   }
 }

@@ -1,3 +1,4 @@
+<!--
 <div class="container mt-4">
   <app-header></app-header>
 
@@ -10,4 +11,33 @@
     </div>
   </div>
   <app-footer></app-footer>
+</div>
+-->
+<div class="container mt-4">
+  <h1 class="mb-4">Lista de productos</h1>
+
+  <div *ngIf="errorMensaje" class="alert alert-danger">
+    {{ errorMensaje }}
+  </div>
+
+  <table class="table table-bordered table-striped" *ngIf="productos.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Disponible</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.disponible ? 'Sí' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="productos.length === 0 && !errorMensaje" class="alert alert-warning">
+    No hay productos para mostrar.
+  </div>
 </div>
