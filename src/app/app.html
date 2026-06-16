@@ -16,6 +16,27 @@
 <div class="container mt-4">
   <h1 class="mb-4">Lista de productos</h1>
 
+  <div class="mb-4">
+    <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Nombre del producto"
+      [(ngModel)]="nuevoNombre"
+    />
+  </div>
+  <div class="form-check mb-2">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      [(ngModel)]="nuevoDisponible"
+      id="disponibleCheck"
+    />
+    <!-- id -> identifica al checkbox en el HTML -->
+    <label class="form-check-label" for="disponibleCheck"> Disponible </label>
+  </div>
+
+  <button class="btn btn-primary mb-2" (click)="agregarProducto()">Agregar producto</button>
+
   <div *ngIf="errorMensaje" class="alert alert-danger">
     {{ errorMensaje }}
   </div>

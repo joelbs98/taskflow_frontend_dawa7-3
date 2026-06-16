@@ -6,6 +6,7 @@ import { TaskForm } from './task-form/task-form';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from './services/producto.service';
 import { Producto } from './models/producto';
+import { FormsModule } from '@angular/forms';
 
 /*
 Padre -> Hijo
@@ -77,7 +78,7 @@ export class App {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -86,6 +87,8 @@ export class App implements OnInit {
 
   productos: Producto[] = [];
   errorMensaje: string = '';
+  nuevoNombre: string = '';
+  nuevoDisponible: boolean = true;
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -98,6 +101,30 @@ export class App implements OnInit {
       },
       error: () => {
         this.errorMensaje = 'No se pudieron cargar los productos';
+      },
+    });
+  }
+
+  agregarProducto(): void {
+    //Construimos el objeto que se enviara a la API
+    const nuevoProducto = {
+      nombre: this.nuevoNombre,
+      disponible: this.nuevoDisponible,
+    };
+
+    this.productoService.agregarProducto(nuevoProducto).subscribe({
+      //Llamar al metodo POST del servicio
+      //subscribe -> Esperar la respuesta
+      //next -> se ejecuta si la petición fue exitosa
+      next: () => {
+        //Limpiar el formulario, limpiar los errores, volver a cargar la lista
+        this.nuevoNombre = '';
+        this.nuevoDisponible = true;
+        this.errorMensaje = '';
+        this.cargarProductos();
+      },
+      error: () => {
+        this.errorMensaje = 'No se pudo agregar el producto';
       },
     });
   }
