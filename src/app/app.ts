@@ -107,6 +107,12 @@ export class App implements OnInit {
 
   agregarProducto(): void {
     //Construimos el objeto que se enviara a la API
+
+    if (!this.nuevoNombre.trim()) {
+      this.errorMensaje = 'El nombre del producto es obligatorio.';
+      return;
+    }
+
     const nuevoProducto = {
       nombre: this.nuevoNombre,
       disponible: this.nuevoDisponible,
