@@ -185,6 +185,11 @@ export class App implements OnInit {
   }
 
   eliminarProducto(id: number): void {
+    const confirmar = confirm('¿Está seguro de eliminar este producto?');
+
+    if (!confirmar) {
+      return;
+    }
     this.productoService.eliminarProducto(id).subscribe({
       next: () => {
         this.cargarProductos();
