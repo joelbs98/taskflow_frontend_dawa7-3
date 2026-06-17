@@ -35,7 +35,17 @@
     <label class="form-check-label" for="disponibleCheck"> Disponible </label>
   </div>
 
-  <button class="btn btn-primary mb-2" (click)="agregarProducto()">Agregar producto</button>
+  <button class="btn btn-primary me-2 mb-2" (click)="guardarProducto()">
+    {{ productoEditandoId === null ? 'Agregar Producto' : 'Actualizar Producto' }}
+  </button>
+
+  <button
+    class="btn btn-secondary mb-2"
+    *ngIf="productoEditandoId !== null"
+    (click)="limpiarFormulario()"
+  >
+    Cancelar edición
+  </button>
 
   <div *ngIf="errorMensaje" class="alert alert-danger">
     {{ errorMensaje }}
@@ -47,6 +57,7 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Disponible</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -54,6 +65,14 @@
         <td>{{ producto.id }}</td>
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.disponible ? 'Sí' : 'No' }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editarProducto(producto)">
+            Editar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarProducto(producto.id)">
+            Eliminar
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -19,4 +19,12 @@ export class ProductoService {
     return this.http.post<Producto>(this.apiUrl, producto);
     //Hacer una solicitud POST a la API
   }
+  //Metodo para actualizar un producto al backend
+  actualizarProducto(id: number, producto: Omit<Producto, 'id'>) {
+    return this.http.put(`${this.apiUrl}/${id}`, producto);
+  }
+  //Metodo para eliminar un producto al backend
+  eliminarProducto(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

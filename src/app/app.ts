@@ -89,6 +89,8 @@ export class App implements OnInit {
   errorMensaje: string = '';
   nuevoNombre: string = '';
   nuevoDisponible: boolean = true;
+  productoEditandoId: number | null = null; //Esta variable nos permitira saber si el formulario
+  //esta creando un producto nuevo o editando uno existente
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -131,6 +133,64 @@ export class App implements OnInit {
       },
       error: () => {
         this.errorMensaje = 'No se pudo agregar el producto';
+      },
+    });
+  }
+
+  editarProducto(producto: Producto): void {
+    this.productoEditandoId = producto.id;
+    this.nuevoNombre = producto.nombre;
+    this.nuevoDisponible = producto.disponible;
+  }
+
+  guardarProducto(): void {
+    if (!this.nuevoNombre.trim()) {
+      this.errorMensaje = 'El nombre del producto es obligatorio.';
+      return;
+    }
+
+    const producto = {
+      nombre: this.nuevoNombre,
+      disponible: this.nuevoDisponible,
+    };
+
+    if (this.productoEditandoId === null) {
+      this.productoService.agregarProducto(producto).subscribe({
+        next: () => {
+          this.limpiarFormulario();
+          this.cargarProductos();
+        },
+        error: () => {
+          this.errorMensaje = 'No se puede agregar el producto';
+        },
+      });
+    } else {
+      this.productoService.actualizarProducto(this.productoEditandoId, producto).subscribe({
+        next: () => {
+          this.limpiarFormulario();
+          this.cargarProductos();
+        },
+        error: () => {
+          this.errorMensaje = 'No se puede actualizar el producto';
+        },
+      });
+    }
+  }
+
+  limpiarFormulario(): void {
+    this.nuevoNombre = '';
+    this.nuevoDisponible = true;
+    this.productoEditandoId = null;
+    this.errorMensaje = '';
+  }
+
+  eliminarProducto(id: number): void {
+    this.productoService.eliminarProducto(id).subscribe({
+      next: () => {
+        this.cargarProductos();
+      },
+      error: () => {
+        this.errorMensaje = 'No se pudo eliminar el producto';
       },
     });
   }
